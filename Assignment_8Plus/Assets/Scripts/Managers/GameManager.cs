@@ -25,6 +25,9 @@ public class GameManager : MonoBehaviour
     public float waterHeight;
     public float liquidDensity;
 
+    GameObject target;
+    GameObject[] projectiles;
+
     void Start()
     {
         if (instance == null)
@@ -35,14 +38,15 @@ public class GameManager : MonoBehaviour
         {
             Destroy(gameObject);
         }
-        
+
         SpawnTarget();
+        ForceManager.instance.AddBuoyancyForceGenerator(waterHeight, liquidDensity);
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+        checkIfHit();
     }
 
     void SpawnTarget()
@@ -51,7 +55,33 @@ public class GameManager : MonoBehaviour
             Random.Range(targetSpawnBoundsX.x, targetSpawnBoundsX.y),
             Random.Range(targetSpawnBoundsY.x, targetSpawnBoundsY.y),
             0.0f);
-        GameObject target = Instantiate(targetPrefab, spawnPosition, Quaternion.identity);
-        target.GetComponent<Particle2D>().Init(targetMass, targetVolume, targetHeight, targetVelocity, targetAcceleration, targetDampingConstant, targetShouldIgnoreForces);
+
+        if (target == null)
+        {
+            target = Instantiate(targetPrefab, spawnPosition, Quaternion.identity);
+            target.GetComponent<Particle2D>().Init(targetMass, targetVolume, targetHeight, targetVelocity, targetAcceleration, targetDampingConstant, targetShouldIgnoreForces);
+        }
+        else
+        {
+            target.transform.position = spawnPosition;
+            target.GetComponent<Particle2D>().velocity = targetVelocity;
+            target.GetComponent<Particle2D>().acceleration = targetAcceleration;
+        }
+    }
+
+    void checkIfHit()
+    {
+        projectiles = GameObject.FindGameObjectsWithTag("Projectiles");
+
+        foreach (GameObject projectile in projectiles)
+        {
+            if (Vector2.Distance(projectile.transform.position, target.transform.position) < 0.75f)
+            {
+                SpawnTarget();
+                Destroy(projectile);
+                score++;
+                return;
+            }
+        }
     }
 }

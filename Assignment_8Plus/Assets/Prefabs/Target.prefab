@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: -2021547197240701168}
   m_Layer: 0
   m_Name: Target
-  m_TagString: Particle2D
+  m_TagString: Target
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -50,6 +50,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mass: 0
   volume: 0
+  height: 0
   inverseMass: 0
   velocity: {x: 0, y: 0}
   acceleration: {x: 0, y: 0}

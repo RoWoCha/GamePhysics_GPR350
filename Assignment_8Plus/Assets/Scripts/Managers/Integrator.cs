@@ -20,11 +20,11 @@ public class Integrator : MonoBehaviour
 
     private void Update()
     {
-        GameObject[] particleObjects = GameObject.FindGameObjectsWithTag("Particle2D");
+        Particle2D[] particleObjects = GameObject.FindObjectsOfType<Particle2D>();
 
-        foreach (GameObject particleGameObj in particleObjects)
+        foreach (Particle2D particle in particleObjects)
         {
-            integrate(particleGameObj, Time.deltaTime);
+            integrate(particle.gameObject, Time.deltaTime);
         }
     }
 

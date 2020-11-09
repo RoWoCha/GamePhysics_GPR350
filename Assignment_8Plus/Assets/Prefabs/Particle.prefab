@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 3175646579342999089}
   m_Layer: 0
   m_Name: Particle
-  m_TagString: Particle2D
+  m_TagString: Projectiles
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -96,6 +96,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mass: 0
   volume: 0
+  height: 0
   inverseMass: 0
   velocity: {x: 0, y: 0}
   acceleration: {x: 0, y: 0}

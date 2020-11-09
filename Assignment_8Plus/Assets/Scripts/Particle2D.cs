@@ -30,13 +30,11 @@ public class Particle2D : MonoBehaviour
             inverseMass = 1.0f / mass;
     }
 
-    //// Update is called once per frame
-    //void Update()
-    //{
-    //    Vector3 newPos = transform.position;
-    //    newPos.x += 1;
-    //    transform.position = newPos;
-    //}
+    private void Update()
+    {
+        if (gameObject.transform.position.x > 9.0f || gameObject.transform.position.x < -9.0f || gameObject.transform.position.y < -5.0f)
+            Destroy(gameObject);
+    }
 
     public void Init(float newMass, float newVolume, float newHeight, Vector2 newVelocity,
         Vector2 newAcceleration, float newDampingConstant, bool newShouldIgnoreForces)

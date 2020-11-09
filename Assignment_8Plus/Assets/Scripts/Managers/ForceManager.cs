@@ -18,19 +18,17 @@ public class ForceManager : MonoBehaviour
 		{
 			Destroy(gameObject);
 		}
-
-		AddBuoyancyForceGenerator(GameManager.instance.waterHeight, GameManager.instance.liquidDensity);
 	}
 
 	void Update()
 	{
-		GameObject[] particleObjects = GameObject.FindGameObjectsWithTag("Particle2D");
+		Particle2D[] particleObjects = GameObject.FindObjectsOfType<Particle2D>();
 
 		foreach (ForceGenerator2D forceGenerator in forceGeneratorsList)
 		{
-			foreach (GameObject particleGameObj in particleObjects)
+			foreach (Particle2D particle in particleObjects)
 			{
-				forceGenerator.UpdateForce(particleGameObj);
+				forceGenerator.UpdateForce(particle.gameObject);
 			}
 		}
 	}
@@ -45,7 +43,7 @@ public class ForceManager : MonoBehaviour
 		forceGeneratorsList.Remove(forceGenerator);
 	}
 
-	ForceGenerator2D AddBuoyancyForceGenerator(float waterHeight, float liquidDensity)
+	public ForceGenerator2D AddBuoyancyForceGenerator(float waterHeight, float liquidDensity)
 	{
 		GameObject forceGenerator = new GameObject("BuoyancyForceGenerator");
 		forceGenerator.AddComponent<BuoyancyForceGenerator>();
@@ -54,5 +52,16 @@ public class ForceManager : MonoBehaviour
 		AddForceGenerator(forceGenerator.GetComponent<BuoyancyForceGenerator>());
 
 		return forceGenerator.GetComponent<BuoyancyForceGenerator>();
+	}
+
+	public ForceGenerator2D AddSpringForceGenerator(GameObject newObject1, GameObject newObject2, float newSpringConstant, float newRestLength)
+	{
+		GameObject forceGenerator = new GameObject("SpringForceGenerator");
+		forceGenerator.AddComponent<SpringForceGenerator>();
+
+		forceGenerator.GetComponent<SpringForceGenerator>().Init(newObject1, newObject2, newSpringConstant, newRestLength);
+		AddForceGenerator(forceGenerator.GetComponent<SpringForceGenerator>());
+
+		return forceGenerator.GetComponent<SpringForceGenerator>();
 	}
 }

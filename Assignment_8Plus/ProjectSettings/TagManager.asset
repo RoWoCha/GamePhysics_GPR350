@@ -5,6 +5,8 @@ TagManager:
   serializedVersion: 2
   tags:
   - Particle2D
+  - Projectiles
+  - Target
   layers:
   - Default
   - TransparentFX
