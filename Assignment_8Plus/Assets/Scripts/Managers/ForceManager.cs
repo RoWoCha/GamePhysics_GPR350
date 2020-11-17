@@ -18,6 +18,8 @@ public class ForceManager : MonoBehaviour
 		{
 			Destroy(gameObject);
 		}
+
+		AddBuoyancyForceGenerator(GameManager.instance.waterHeight, GameManager.instance.liquidDensity);
 	}
 
 	void Update()

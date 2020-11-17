@@ -40,7 +40,6 @@ public class GameManager : MonoBehaviour
         }
 
         SpawnTarget();
-        ForceManager.instance.AddBuoyancyForceGenerator(waterHeight, liquidDensity);
     }
 
     // Update is called once per frame
