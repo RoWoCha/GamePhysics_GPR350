@@ -19,8 +19,6 @@ public class PlayerController : MonoBehaviour
     public float spring_mass_two;
     public float spring_volume_one;
     public float spring_volume_two;
-    public float spring_height_one;
-    public float spring_height_two;
     public float spring_speed_one;
     public float spring_speed_two;
     public Vector2 spring_gravity;
@@ -38,8 +36,6 @@ public class PlayerController : MonoBehaviour
     public float rod_mass_two;
     public float rod_volume_one;
     public float rod_volume_two;
-    public float rod_height_one;
-    public float rod_height_two;
     public float rod_speed_one;
     public float rod_speed_two;
     public Vector2 rod_gravity;
@@ -105,9 +101,9 @@ public class PlayerController : MonoBehaviour
             object1.AddComponent<SpriteRenderer>();
             object1.GetComponent<SpriteRenderer>().sprite = spring_sprite_one;
             object1.GetComponent<SpriteRenderer>().color = spring_color_one;
-            object1.GetComponent<Particle2D>().Init(spring_mass_one, spring_volume_one, spring_height_one,
+            object1.GetComponent<Particle2D>().Init(spring_mass_one, spring_volume_one,
                 transform.up * spring_speed_one, spring_gravity, spring_damping_one, false);
-            Integrator.instance.particlesList.Add(object1.GetComponent<Particle2D>());
+            ParticlesManager.instance.particlesList.Add(object1.GetComponent<Particle2D>());
 
             GameObject object2 = new GameObject("SpringProjectile");
             object2.transform.position = bulletSpawnTransform.position;
@@ -118,9 +114,9 @@ public class PlayerController : MonoBehaviour
             object2.AddComponent<SpriteRenderer>();
             object2.GetComponent<SpriteRenderer>().sprite = spring_sprite_two;
             object2.GetComponent<SpriteRenderer>().color = spring_color_two;
-            object2.GetComponent<Particle2D>().Init(spring_mass_two, spring_volume_two, spring_height_two,
+            object2.GetComponent<Particle2D>().Init(spring_mass_two, spring_volume_two,
                 transform.up * spring_speed_two, spring_gravity, spring_damping_two, false);
-            Integrator.instance.particlesList.Add(object2.GetComponent<Particle2D>());
+            ParticlesManager.instance.particlesList.Add(object2.GetComponent<Particle2D>());
 
             ForceManager.instance.AddSpringForceGenerator(object1, object2, spring_constant, spring_rest_length);
         }
@@ -135,9 +131,9 @@ public class PlayerController : MonoBehaviour
             object1.AddComponent<SpriteRenderer>();
             object1.GetComponent<SpriteRenderer>().sprite = rod_sprite_one;
             object1.GetComponent<SpriteRenderer>().color = rod_color_one;
-            object1.GetComponent<Particle2D>().Init(rod_mass_one, rod_volume_one, rod_height_one,
+            object1.GetComponent<Particle2D>().Init(rod_mass_one, rod_volume_one,
                 transform.up * rod_speed_one, rod_gravity, rod_damping_one, false);
-            Integrator.instance.particlesList.Add(object1.GetComponent<Particle2D>());
+            ParticlesManager.instance.particlesList.Add(object1.GetComponent<Particle2D>());
 
             GameObject object2 = new GameObject("RodProjectile");
             object2.transform.position = bulletSpawnTransform.position;
@@ -148,9 +144,9 @@ public class PlayerController : MonoBehaviour
             object2.AddComponent<SpriteRenderer>();
             object2.GetComponent<SpriteRenderer>().sprite = rod_sprite_two;
             object2.GetComponent<SpriteRenderer>().color = rod_color_two;
-            object2.GetComponent<Particle2D>().Init(rod_mass_two, rod_volume_two, rod_height_two,
+            object2.GetComponent<Particle2D>().Init(rod_mass_two, rod_volume_two,
                 transform.up * rod_speed_two, rod_gravity, rod_damping_two, false);
-            Integrator.instance.particlesList.Add(object2.GetComponent<Particle2D>());
+            ParticlesManager.instance.particlesList.Add(object2.GetComponent<Particle2D>());
 
             GameObject linkObj = new GameObject("RodLink");
             linkObj.AddComponent<Particle2DRod>();

@@ -28,32 +28,28 @@ public class Particle2D : MonoBehaviour
     {
         if (mass != 0.0f)
             inverseMass = 1.0f / mass;
+
+        height = gameObject.GetComponent<SpriteRenderer>().bounds.size.y;
+        //Debug.Log(gameObject.name + "size y is: " + gameObject.GetComponent<SpriteRenderer>().bounds.size.y);
     }
 
     private void Update()
     {
         if (gameObject.transform.position.x > 9.0f || gameObject.transform.position.x < -9.0f || gameObject.transform.position.y < -5.0f)
-            DeleteParticle();
+            ParticlesManager.instance.DeleteParticle(this.gameObject);
     }
 
-    public void Init(float newMass, float newVolume, float newHeight, Vector2 newVelocity,
+    public void Init(float newMass, float newVolume, Vector2 newVelocity,
         Vector2 newAcceleration, float newDampingConstant, bool newShouldIgnoreForces)
     {
         mass = newMass;
         inverseMass = 1.0f / mass;
         volume = newVolume;
-        height = newHeight;
         velocity = newVelocity;
         acceleration = newAcceleration;
         accumulatedForces = Vector2.zero;
         dampingConstant = newDampingConstant;
         shouldIgnoreForces = newShouldIgnoreForces;
-    }
-
-    public void DeleteParticle()
-    {
-        Integrator.instance.particlesList.Remove(this);
-        Destroy(gameObject);
     }
 
     //void OnBecameInvisible()

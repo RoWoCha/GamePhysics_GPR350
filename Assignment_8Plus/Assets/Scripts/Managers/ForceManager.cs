@@ -35,7 +35,7 @@ public class ForceManager : MonoBehaviour
 			}
 			else
 			{
-				foreach (Particle2D particle in Integrator.instance.particlesList)
+				foreach (Particle2D particle in ParticlesManager.instance.particlesList)
 				{
 					forceGenerator.UpdateForce(particle.gameObject);
 				}

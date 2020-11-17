@@ -13,13 +13,26 @@ public class GameManager : MonoBehaviour
     public GameObject targetPrefab;
     public float targetMass;
     public float targetVolume;
-    public float targetHeight;
     public Vector2 targetVelocity;
     public Vector2 targetAcceleration;
     public float targetDampingConstant;
     public bool targetShouldIgnoreForces;
     public Vector2 targetSpawnBoundsX;
     public Vector2 targetSpawnBoundsY;
+
+    [Header("Random Particles Settings")]
+    public float rndParticleMass;
+    public float rndParticleVolume;
+    public Vector2 rndParticleVelocity;
+    public Vector2 rndParticleAcceleration;
+    public float rndParticleDampingConstant;
+    public bool rndParticleShouldIgnoreForces;
+    public Sprite rndParticleSprite;
+    public Color rndParticleColor;
+    public Vector2 rndParticleSpawnBoundsX;
+    public Vector2 rndParticleSpawnBoundsY;
+    public float rndParticleSpawnDelay;
+    float timer;
 
     [Header("Liquid Settings")]
     public float waterHeight;
@@ -46,6 +59,7 @@ public class GameManager : MonoBehaviour
     void Update()
     {
         CheckIfHit();
+        SpawnRandomParticle();
     }
 
     void SpawnTarget()
@@ -58,7 +72,8 @@ public class GameManager : MonoBehaviour
         if (target == null)
         {
             target = Instantiate(targetPrefab, spawnPosition, Quaternion.identity);
-            target.GetComponent<Particle2D>().Init(targetMass, targetVolume, targetHeight, targetVelocity, targetAcceleration, targetDampingConstant, targetShouldIgnoreForces);
+            target.GetComponent<Particle2D>().Init(targetMass, targetVolume, targetVelocity, targetAcceleration, targetDampingConstant, targetShouldIgnoreForces);
+            ParticlesManager.instance.particlesList.Add(target.GetComponent<Particle2D>());
         }
         else
         {
@@ -74,13 +89,38 @@ public class GameManager : MonoBehaviour
 
         foreach (GameObject projectile in projectiles)
         {
-            if (Vector2.Distance(projectile.transform.position, target.transform.position) < 0.75f)
+            if (CollisionDetector.DetectCollision(projectile.GetComponent<Particle2D>(), target.GetComponent<Particle2D>()))
             {
                 SpawnTarget();
-                projectile.GetComponent<Particle2D>().DeleteParticle();
+                ParticlesManager.instance.DeleteParticle(projectile);
                 score++;
                 return;
             }
+        }
+    }
+
+    void SpawnRandomParticle()
+    {
+        timer += Time.deltaTime;
+        if (timer > rndParticleSpawnDelay)
+        {
+            Vector3 spawnPosition = new Vector3(
+            Random.Range(targetSpawnBoundsX.x, targetSpawnBoundsX.y),
+            Random.Range(targetSpawnBoundsY.x, targetSpawnBoundsY.y),
+            0.0f);
+
+            GameObject rndPart = new GameObject("RndPart");
+            rndPart.transform.position = spawnPosition;
+            rndPart.transform.rotation = transform.rotation;
+            rndPart.transform.localScale = new Vector3(1, 1, 1);
+            rndPart.AddComponent<Particle2D>();
+            rndPart.AddComponent<SpriteRenderer>();
+            rndPart.GetComponent<SpriteRenderer>().sprite = rndParticleSprite;
+            rndPart.GetComponent<SpriteRenderer>().color = rndParticleColor;
+            rndPart.GetComponent<Particle2D>().Init(rndParticleMass, rndParticleVolume,
+                transform.up * rndParticleVelocity, rndParticleAcceleration, rndParticleDampingConstant, false);
+            ParticlesManager.instance.particlesList.Add(rndPart.GetComponent<Particle2D>());
+            timer = 0.0f;
         }
     }
 }
