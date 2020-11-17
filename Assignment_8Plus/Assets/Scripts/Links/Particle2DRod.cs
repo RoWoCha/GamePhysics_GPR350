@@ -16,7 +16,10 @@ public class Particle2DRod : Particle2DLink
     public override void CreateContacts(List<Particle2DContact> contacts)
     {
 		if (object1 == null || object2 == null)
+		{
+			Destroy(gameObject);
 			return;
+		}
 
 		float penetration;
 		float currentLength = getCurrentLength();

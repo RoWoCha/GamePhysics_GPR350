@@ -6,6 +6,8 @@ public class Integrator : MonoBehaviour
 {
     public static Integrator instance = null;
 
+    public List<Particle2D> particlesList = new List<Particle2D>();
+
     void Start()
     {
         if (instance == null)
@@ -16,19 +18,23 @@ public class Integrator : MonoBehaviour
         {
             Destroy(gameObject);
         }
+
+        Particle2D[] particleObjects = GameObject.FindObjectsOfType<Particle2D>();
+        foreach (Particle2D particle in particleObjects)
+        {
+            particlesList.Add(particle);
+        }
     }
 
     private void Update()
     {
-        Particle2D[] particleObjects = GameObject.FindObjectsOfType<Particle2D>();
-
-        foreach (Particle2D particle in particleObjects)
+        foreach (Particle2D particle in particlesList)
         {
-            integrate(particle.gameObject, Time.deltaTime);
+            Integrate(particle.gameObject, Time.deltaTime);
         }
     }
 
-    public void integrate(GameObject particleGameObj, float dt)
+    public void Integrate(GameObject particleGameObj, float dt)
     {
         Particle2D objectData = particleGameObj.GetComponent<Particle2D>();
 

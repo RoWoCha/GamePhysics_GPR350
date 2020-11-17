@@ -33,7 +33,7 @@ public class Particle2D : MonoBehaviour
     private void Update()
     {
         if (gameObject.transform.position.x > 9.0f || gameObject.transform.position.x < -9.0f || gameObject.transform.position.y < -5.0f)
-            Destroy(gameObject);
+            DeleteParticle();
     }
 
     public void Init(float newMass, float newVolume, float newHeight, Vector2 newVelocity,
@@ -49,4 +49,15 @@ public class Particle2D : MonoBehaviour
         dampingConstant = newDampingConstant;
         shouldIgnoreForces = newShouldIgnoreForces;
     }
+
+    public void DeleteParticle()
+    {
+        Integrator.instance.particlesList.Remove(this);
+        Destroy(gameObject);
+    }
+
+    //void OnBecameInvisible()
+    //{
+    //    DeleteParticle();
+    //}
 }

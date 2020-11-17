@@ -20,7 +20,10 @@ public class SpringForceGenerator : ForceGenerator2D
 	public override void UpdateForce(GameObject particleGameObj)
 	{
 		if (object1 == null || object2 == null)
+		{
+			Destroy(gameObject);
 			return;
+		}
 
 		Vector2 pos1 = object1.transform.position;
 		Vector2 pos2 = object2.transform.position;

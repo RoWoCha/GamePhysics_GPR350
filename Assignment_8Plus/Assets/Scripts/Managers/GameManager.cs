@@ -45,7 +45,7 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        checkIfHit();
+        CheckIfHit();
     }
 
     void SpawnTarget()
@@ -68,7 +68,7 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    void checkIfHit()
+    void CheckIfHit()
     {
         projectiles = GameObject.FindGameObjectsWithTag("Projectiles");
 
@@ -77,7 +77,7 @@ public class GameManager : MonoBehaviour
             if (Vector2.Distance(projectile.transform.position, target.transform.position) < 0.75f)
             {
                 SpawnTarget();
-                Destroy(projectile);
+                projectile.GetComponent<Particle2D>().DeleteParticle();
                 score++;
                 return;
             }

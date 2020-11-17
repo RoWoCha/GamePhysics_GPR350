@@ -7,6 +7,7 @@ public class ForceManager : MonoBehaviour
 	public static ForceManager instance = null;
 
 	List<ForceGenerator2D> forceGeneratorsList = new List<ForceGenerator2D>();
+	List<ForceGenerator2D> destroyForceGeneratorsList = new List<ForceGenerator2D>();
 
 	void Start()
 	{
@@ -28,11 +29,24 @@ public class ForceManager : MonoBehaviour
 
 		foreach (ForceGenerator2D forceGenerator in forceGeneratorsList)
 		{
-			foreach (Particle2D particle in particleObjects)
+			if (forceGenerator == null)
 			{
-				forceGenerator.UpdateForce(particle.gameObject);
+				destroyForceGeneratorsList.Add(forceGenerator);
+			}
+			else
+			{
+				foreach (Particle2D particle in Integrator.instance.particlesList)
+				{
+					forceGenerator.UpdateForce(particle.gameObject);
+				}
 			}
 		}
+
+		foreach (ForceGenerator2D forceGenerator in destroyForceGeneratorsList)
+		{
+			DeleteForceGenerator(forceGenerator);
+		}
+		destroyForceGeneratorsList.Clear();
 	}
 
 	void AddForceGenerator(ForceGenerator2D forceGenerator)
