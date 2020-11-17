@@ -32,6 +32,7 @@ public class GameManager : MonoBehaviour
     public Vector2 rndParticleSpawnBoundsX;
     public Vector2 rndParticleSpawnBoundsY;
     public float rndParticleSpawnDelay;
+    public bool ifSpawnRandomPaticles;
     float timer;
 
     [Header("Liquid Settings")]
@@ -59,7 +60,8 @@ public class GameManager : MonoBehaviour
     void Update()
     {
         CheckIfHit();
-        SpawnRandomParticle();
+        if (ifSpawnRandomPaticles)
+            SpawnRandomParticle();
     }
 
     void SpawnTarget()

@@ -840,6 +840,7 @@ MonoBehaviour:
   rndParticleSpawnBoundsX: {x: -7, y: 8}
   rndParticleSpawnBoundsY: {x: -4, y: 4}
   rndParticleSpawnDelay: 0.2
+  ifSpawnRandomPaticles: 1
   waterHeight: 0
   liquidDensity: 40
 --- !u!1 &1020587962
