@@ -52,6 +52,11 @@ public class Particle : MonoBehaviour
         shouldIgnoreForces = newShouldIgnoreForces;
     }
 
+    public void CalulateOrbitalVelocity()
+    {
+        velocity = new Vector3(0, 0, 1) * Mathf.Sqrt(GameManager.instance.gravityConstant * GameObject.Find("Sun").GetComponent<Particle>().mass / -transform.position.x);
+    }
+
     //void OnBecameInvisible()
     //{
     //    DeleteParticle();

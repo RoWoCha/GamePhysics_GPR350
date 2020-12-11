@@ -28,10 +28,13 @@ public class GameManager : MonoBehaviour
         spaceObjects = GameObject.FindGameObjectsWithTag("SpaceObject");
         foreach(GameObject attractor in spaceObjects)
         {
+            if(attractor.name != "Sun")
+                attractor.GetComponent<Particle>().CalulateOrbitalVelocity();
+
             ForceManager.instance.AddGravityForceGenerator(attractor);
         }
 
-        gameSpeed = 1.0f;
+        gameSpeed = 0.5f;
         Time.timeScale = gameSpeed;
     }
 
@@ -48,8 +51,8 @@ public class GameManager : MonoBehaviour
         else if (Input.GetKey(KeyCode.Minus))
         {
             gameSpeed -= 0.0035f;
-            if (gameSpeed <= 0.15f)
-                gameSpeed = 0.15f;
+            if (gameSpeed <= 0.05f)
+                gameSpeed = 0.05f;
             Time.timeScale = gameSpeed;
         }
         else if (Input.GetKey(KeyCode.R))

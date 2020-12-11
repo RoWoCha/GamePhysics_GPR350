@@ -1965,7 +1965,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 'Game speed: 1.00x (-/+)'
+  m_Text: 'Game speed: 0.50x (-/+)'
 --- !u!222 &1142845637
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -2269,6 +2269,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Mercury
+      objectReference: {fileID: 0}
+    - target: {fileID: 3889334168561990669, guid: 01613cb038ee177459c00820f1ea9206,
+        type: 3}
+      propertyPath: m_TagString
+      value: SpaceObject
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 01613cb038ee177459c00820f1ea9206, type: 3}
