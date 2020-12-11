@@ -30,11 +30,11 @@ public class UIManager : MonoBehaviour
 
     public void UpdateUI()
     {
-        gameSpeedText.text = "Game speed: " + GameManager.instance.gameSpeed.ToString("F2") + "x (+/-)";
+        gameSpeedText.text = "Game speed: " + GameManager.instance.gameSpeed.ToString("F2") + "x (-/+)";
     }
 
     public void UpdateCameraSpeedUI(float newSpeed)
     {
-        cameraSpeedText.text = "Camera speed: " + newSpeed.ToString("F2") + "x (wheel up/down)";
+        cameraSpeedText.text = "Camera speed: " + newSpeed.ToString("F2") + "x (wheel down/up)";
     }
 }

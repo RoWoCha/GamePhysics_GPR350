@@ -1,17 +1,17 @@
 ﻿// Source: https://forum.unity.com/threads/fly-cam-simple-cam-script.67042/
 
 using UnityEngine;
-public class FlyCam : MonoBehaviour
+public class FlyCamScript : MonoBehaviour
 {
     private Vector3 _angles;
-    public float speed = 0.1f;
+    public float speed = 0.5f;
     public float fastSpeed = 3f;
     public float mouseSpeed = 4.0f;
 
     private void OnEnable()
     {
         //Debug.Log(speed);
-        speed = 0.1f;
+        speed = 0.5f;
         _angles = transform.eulerAngles;
         Cursor.lockState = CursorLockMode.Locked;
     }
