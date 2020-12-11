@@ -8,6 +8,7 @@ public class UIManager : MonoBehaviour
     public static UIManager instance = null;
 
     public Text gameSpeedText;
+    public Text cameraSpeedText;
 
     void Awake()
     {
@@ -29,6 +30,11 @@ public class UIManager : MonoBehaviour
 
     public void UpdateUI()
     {
-        gameSpeedText.text = "Run speed: " + GameManager.instance.gameSpeed + "x (+/-)";
+        gameSpeedText.text = "Game speed: " + GameManager.instance.gameSpeed.ToString("F2") + "x (+/-)";
+    }
+
+    public void UpdateCameraSpeedUI(float newSpeed)
+    {
+        cameraSpeedText.text = "Camera speed: " + newSpeed.ToString("F2") + "x (wheel up/down)";
     }
 }

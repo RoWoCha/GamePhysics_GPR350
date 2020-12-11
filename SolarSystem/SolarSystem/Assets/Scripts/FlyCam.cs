@@ -5,7 +5,7 @@ public class FlyCam : MonoBehaviour
 {
     private Vector3 _angles;
     public float speed = 0.1f;
-    public float fastSpeed = 1f;
+    public float fastSpeed = 3f;
     public float mouseSpeed = 4.0f;
 
     private void OnEnable()
@@ -29,12 +29,17 @@ public class FlyCam : MonoBehaviour
             Input.GetAxis("Vertical") * moveSpeed * transform.forward;
 
 
-        // addition: Scroll wheel speed control
         if (Input.GetAxis("Mouse ScrollWheel") > 0f) // forward
-        { speed *= 1.5f; }
+        {
+            speed += 0.15f;
+            if (speed > 3f)
+                speed = 3f;
+        }
         else if (Input.GetAxis("Mouse ScrollWheel") < 0f) // backwards
         {
-            speed *= 0.66f;
+            speed -= 0.15f;
+            if (speed < 0.1f)
+                speed = 0.1f;
             //Debug.Log(speed);
         }
 
@@ -45,5 +50,6 @@ public class FlyCam : MonoBehaviour
         if (Input.GetKey(KeyCode.Q))
         { transform.position -= moveSpeed * transform.up * upDownMultiplier; }
 
+        UIManager.instance.UpdateCameraSpeedUI(speed);
     }
 }
