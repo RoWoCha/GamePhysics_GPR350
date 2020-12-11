@@ -28,7 +28,7 @@ public class GameManager : MonoBehaviour
         spaceObjects = GameObject.FindGameObjectsWithTag("SpaceObject");
         foreach(GameObject attractor in spaceObjects)
         {
-            if(attractor.name != "Sun")
+            if(attractor.name != "Sun" && attractor.name != "Moon")
                 attractor.GetComponent<Particle>().CalulateOrbitalVelocity();
 
             ForceManager.instance.AddGravityForceGenerator(attractor);
